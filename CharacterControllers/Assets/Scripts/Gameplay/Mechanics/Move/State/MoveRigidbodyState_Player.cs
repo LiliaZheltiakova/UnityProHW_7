@@ -10,10 +10,10 @@ namespace Gameplay
 
         [Space]
         [Header("Move values")]
-        [SerializeField] private MoveSpeedMechanic speedMechanic;
-        [SerializeField] private MoveAccelerationMechanic accelerationMechanic;
-        [SerializeField] private MoveDeccelerationMechanic deccelerationMechanic;
-        [SerializeField] private MoveVelocityPowerMechanic velPowerMechanic;
+        [SerializeField] private FloatMechanic speedMechanic;
+        [SerializeField] private FloatMechanic accelerationMechanic;
+        [SerializeField] private FloatMechanic deccelerationMechanic;
+        [SerializeField] private FloatMechanic velPowerMechanic;
 
         public override void UpdateState(float deltaTime)
         {
@@ -29,23 +29,23 @@ namespace Gameplay
                 
 
             var direction = this.moveMechanic.Direction;
-            float targetSpeed = direction.x * speedMechanic.Speed;
+            float targetSpeed = direction.x * speedMechanic.Value;
             float speedDif = targetSpeed - rigidbody.velocity.x;
             float accelRate;
 
             if (Mathf.Abs(targetSpeed) > .01f)
             {
-                accelRate = accelerationMechanic.Acceleration;
+                accelRate = accelerationMechanic.Value;
             }
                 
 
             else
             {
-                accelRate = deccelerationMechanic.Decceleration;
+                accelRate = deccelerationMechanic.Value;
             }
                 
 
-            float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPowerMechanic.VelocityPower);
+            float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPowerMechanic.Value);
 
             rigidbody.AddForce(movement * direction);
 

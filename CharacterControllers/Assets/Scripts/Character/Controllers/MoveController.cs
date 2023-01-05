@@ -10,8 +10,8 @@ namespace Player
         IGameReadyComponent,
         IGameFinishComponent
     {
-        private IKeyboardArrowsInput keyboardArrows;
-        private IMoveComponent moveComponent;
+        private IMoveInput moveInput;
+        private IComponent_Move moveComponent;
 
         private void Awake()
         {
@@ -19,22 +19,22 @@ namespace Player
         }
         public void OnInitGame(IGameSystem system)
         {
-            this.moveComponent = system.GetService<IMoveComponent>();
-            this.keyboardArrows = system.GetService<IKeyboardArrowsInput>();
+            this.moveComponent = system.GetService<IComponent_Move>();
+            this.moveInput = system.GetService<IMoveInput>();
         }
 
         public void OnReadyGame(IGameSystem system)
         {
-            this.keyboardArrows.OnArrowDirection += this.OnMove;
-            this.keyboardArrows.OnArrowReleased += this.OnStopMove;
+            this.moveInput.OnMoveDirection += this.OnMove;
+            this.moveInput.OnMoveInputStopped += this.OnStopMove;
             this.enabled = true;
         }
 
         public void OnFinishGame()
         {
             this.enabled = false;
-            this.keyboardArrows.OnArrowDirection -= OnMove;
-            this.keyboardArrows.OnArrowReleased -= this.OnStopMove;
+            this.moveInput.OnMoveDirection -= OnMove;
+            this.moveInput.OnMoveInputStopped -= this.OnStopMove;
         }
 
         private void OnMove(Vector2 direction)

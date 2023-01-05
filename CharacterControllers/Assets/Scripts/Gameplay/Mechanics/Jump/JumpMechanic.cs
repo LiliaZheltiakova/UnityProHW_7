@@ -16,16 +16,16 @@ namespace Gameplay
 
         private bool finishJump = true;
 
-        [Space]
+        [Space] 
         [Header("Other Mechanics")]
         [SerializeField] private GroundCheckMechanic groundMech;
         public bool IsGrounded => this.groundMech.IsGrounded();
-
-        [SerializeField] private JumpForceMechanic jumpForceMechanic;
-        public JumpForceMechanic JumpForceMechanic => this.jumpForceMechanic;
-
-        [SerializeField] private JumpTimeMechanic jumpTimeMechanic;
-        public JumpTimeMechanic JumpTimeMechanic => this.jumpTimeMechanic;
+        
+        [SerializeField] private FloatMechanic jumpForceMechanic; 
+        public FloatMechanic JumpForceMechanic => this.jumpForceMechanic;
+        
+        [SerializeField] private FloatMechanic jumpTimeMechanic; 
+        public FloatMechanic JumpTimeMechanic => this.jumpTimeMechanic;
 
         [SerializeField] private TimeCounterMechanic jumpTimeCounterMechanic;
         public TimeCounterMechanic JumpTimeCounterMechanic => this.jumpTimeCounterMechanic;
@@ -50,7 +50,7 @@ namespace Gameplay
                     this.finishJump = false;
                     this.isJumpingDown = false;
                     this.isJumpingUp = true;
-                    this.jumpTimeCounterMechanic.ResetTimeCounter(this.jumpTimeMechanic.JumpTime);
+                    this.jumpTimeCounterMechanic.ResetTimeCounter(this.jumpTimeMechanic.Value);
                     this.onStartJumpUp?.Invoke();
                     this.OnStartJumpUp?.Invoke();
                 }
@@ -72,6 +72,9 @@ namespace Gameplay
             }
         }
 
+        public void FinishJumping()
+        {
+        }
 
         private void FixedUpdate()
         {
@@ -91,9 +94,7 @@ namespace Gameplay
                 this.finishJump = true;
                 this.isJumpingUp = false;
                 this.isJumpingDown = false;
-
                 
-
                 this.onFinishJump?.Invoke();
                 this.OnFinishJump?.Invoke();
             }

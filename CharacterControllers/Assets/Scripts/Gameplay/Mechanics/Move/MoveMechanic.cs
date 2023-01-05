@@ -51,8 +51,7 @@ namespace Gameplay
                 this.onFinishMove?.Invoke();
                 this.OnFinishMove?.Invoke();
             }
-
-           // this.finishMove = true;
+            // this.finishMove = true;
         }
     }
 }

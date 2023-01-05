@@ -24,7 +24,7 @@ namespace Gameplay
 
             if (this.jumpMechanic.JumpTimeCounterMechanic.TimeCounter > 0f && this.jumpMechanic.IsJumpingUp)
             {
-                rigidbody.AddForce(Vector2.up * this.jumpMechanic.JumpForceMechanic.JumpForce, ForceMode2D.Impulse);
+                rigidbody.AddForce(Vector2.up * this.jumpMechanic.JumpForceMechanic.Value, ForceMode2D.Impulse);
                 this.jumpMechanic.JumpTimeCounterMechanic.UpdateTimeCounter(deltaTime);
             }
 
@@ -35,4 +35,3 @@ namespace Gameplay
         }
     }
 }
-

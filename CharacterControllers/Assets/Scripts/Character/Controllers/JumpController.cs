@@ -10,8 +10,8 @@ namespace Player
     IGameReadyComponent,
     IGameFinishComponent
     {
-        private IKeyboardSpaceInput keyboardSpace;
-        private IJumpComponent jumpComponent;
+        private IJumpInput jumpInput;
+        private IComponent_Jump jumpComponent;
 
         private void Awake()
         {
@@ -20,22 +20,22 @@ namespace Player
 
         public void OnInitGame(IGameSystem system)
         {
-            this.jumpComponent = system.GetService<IJumpComponent>();
-            this.keyboardSpace = system.GetService<IKeyboardSpaceInput>();
+            this.jumpComponent = system.GetService<IComponent_Jump>();
+            this.jumpInput = system.GetService<IJumpInput>();
         }
 
         public void OnReadyGame(IGameSystem system)
         {
-            this.keyboardSpace.OnKeyDown += OnJumpUp;
-            this.keyboardSpace.OnKeyReleased += OnJumpDown;
-            this.keyboardSpace.OnKeyHold += OnJumpUp;
+            this.jumpInput.OnKeyDown += OnJumpUp;
+            this.jumpInput.OnKeyReleased += OnJumpDown;
+            this.jumpInput.OnKeyHold += OnJumpUp;
         }
 
         public void OnFinishGame()
         {
-            this.keyboardSpace.OnKeyDown -= OnJumpUp;
-            this.keyboardSpace.OnKeyReleased -= OnJumpDown;
-            this.keyboardSpace.OnKeyHold -= OnJumpUp;
+            this.jumpInput.OnKeyDown -= OnJumpUp;
+            this.jumpInput.OnKeyReleased -= OnJumpDown;
+            this.jumpInput.OnKeyHold -= OnJumpUp;
         }
 
         private void OnJumpUp()
